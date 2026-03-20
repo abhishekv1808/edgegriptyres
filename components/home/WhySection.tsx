@@ -130,7 +130,7 @@ export default function WhySection() {
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="stat-card glass-card rounded-2xl p-6 text-center hover:border-brand-red/20 transition-all duration-500"
+              className="stat-card glass-card rounded-2xl p-4 sm:p-6 text-center border border-transparent hover:border-brand-red/20 transition-colors duration-500"
             >
               <div className="flex items-baseline justify-center gap-0.5 mb-2">
                 <span

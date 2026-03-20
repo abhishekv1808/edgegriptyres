@@ -260,7 +260,7 @@ export default function BrandsPage() {
                     )}
                   </div>
 
-                  <div className="flex items-center justify-between border-t border-white/5 pt-6 mt-6">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-t border-white/5 pt-6 mt-6">
                     <div className="flex-1">
                       <p className="text-xs font-body font-bold text-brand-white/40 uppercase tracking-widest mb-1">
                         Best For
@@ -272,7 +272,7 @@ export default function BrandsPage() {
 
                     <a
                       href={`https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(brand.name)}%20tyres`}
-                      className="group inline-flex items-center gap-3 text-brand-black font-body font-bold px-6 py-3.5 rounded-xl transition-all duration-300 relative overflow-hidden"
+                      className="group flex w-full sm:w-auto items-center justify-center gap-3 text-brand-black font-body font-bold px-6 py-3.5 rounded-xl transition-all duration-300 relative overflow-hidden"
                       style={{ backgroundColor: brand.color }}
                     >
                       <span className="relative z-10">Enquire Now</span>

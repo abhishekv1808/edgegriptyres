@@ -247,7 +247,7 @@ export default function Footer() {
       </div>
 
       {/* Full-Width Logo */}
-      <div className="border-t border-white/[0.03] py-10">
+      <div className="border-t border-white/[0.03] py-8 pb-12 md:py-10">
         <div className="section-container flex items-center justify-center">
           <img
             src="/images/edgegriptyres-logo.png"

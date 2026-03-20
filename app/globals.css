@@ -76,7 +76,13 @@ body::before {
 
 /* Section spacing */
 section {
-  padding: 5rem 0;
+  padding: 3.5rem 0;
+}
+
+@media (min-width: 768px) {
+  section {
+    padding: 5rem 0;
+  }
 }
 
 /* Custom scrollbar */

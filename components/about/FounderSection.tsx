@@ -188,17 +188,17 @@ export default function FounderSection() {
         </div>
 
         {/* Large Pull Quote */}
-        <div className="founder-fade-up my-32 relative">
-          <div className="absolute left-0 top-0 text-[180px] font-serif leading-none text-white/5 -translate-y-12 -translate-x-8 select-none">"</div>
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-black text-center text-brand-white uppercase leading-tight relative z-10">
+        <div className="founder-fade-up my-20 md:my-32 relative">
+          <div className="absolute left-0 top-0 text-[120px] md:text-[180px] font-serif leading-none text-white/5 -translate-y-8 md:-translate-y-12 -translate-x-4 md:-translate-x-8 select-none">"</div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display font-black text-center text-brand-white uppercase leading-tight relative z-10 px-4">
             "We're not here to take part,<br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-brand-red-dark">we're here to take over."</span>
           </h2>
-          <div className="absolute right-0 bottom-0 text-[180px] font-serif leading-none text-white/5 translate-y-24 translate-x-8 select-none">"</div>
+          <div className="absolute right-0 bottom-0 text-[120px] md:text-[180px] font-serif leading-none text-white/5 translate-y-16 md:translate-y-24 translate-x-4 md:translate-x-8 select-none">"</div>
         </div>
 
         {/* Stats Strip */}
-        <div className="stats-container flex flex-wrap justify-center gap-4 lg:gap-6 mt-16 border-t border-white/10 pt-16">
+        <div className="stats-container flex flex-wrap justify-center gap-3 lg:gap-6 mt-12 md:mt-16 border-t border-white/10 pt-12 md:pt-16">
           <div className="stat-badge flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-5 py-2.5">
             <span className="text-xl">🏍️</span>
             <span className="font-body font-semibold text-brand-white text-sm">10+ Years Riding</span>

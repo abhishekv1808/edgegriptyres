@@ -12,7 +12,6 @@ const TyreModel = dynamic(() => import("@/components/ui/TyreModel"), {
 });
 
 const trustBadges = [
-  "Michelin Authorised",
   "Free Balancing",
   "Same-Day Service",
 ];
@@ -66,16 +65,10 @@ export default function HeroSection() {
           }}
         />
 
-        {/* Continuous Rolling Premium Tyre */}
-        <div className="absolute right-[-30px] md:right-[-15px] lg:right-[1%] xl:right-[4%] 2xl:right-[6%] top-1/2 -translate-y-1/2 w-[450px] h-[450px] lg:w-[600px] lg:h-[600px] pointer-events-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[1]">
-          <div className="w-full h-full pointer-events-auto">
-            <TyreModel />
-          </div>
-        </div>
       </div>
 
       {/* Content */}
-      <div className="w-full px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32 max-w-[1920px] mx-auto relative z-10 pt-4 pb-4 md:pt-8 md:pb-8 lg:pt-12 lg:pb-12">
+      <div className="w-full px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32 max-w-[1920px] mx-auto relative z-10 pt-4 pb-4 md:pt-8 md:pb-8 lg:pt-12 lg:pb-12 flex flex-col md:block">
         <div className="max-w-2xl lg:max-w-3xl relative z-20">
           {/* Overline */}
           <motion.div
@@ -84,7 +77,7 @@ export default function HeroSection() {
           >
             <div className="h-[2px] w-8 bg-brand-red" />
             <span className="text-xs font-body font-semibold text-brand-red uppercase tracking-[0.2em]">
-              Nagasandra, Bengaluru
+              Premium Tyre Specialists
             </span>
           </motion.div>
 
@@ -95,7 +88,7 @@ export default function HeroSection() {
                 <motion.span
                   key={i}
                   variants={itemVariants}
-                  className="hero-word inline-block text-6xl sm:text-7xl lg:text-8xl xl:text-[96px] font-display font-black uppercase tracking-tight mr-4"
+                  className="hero-word inline-block text-5xl sm:text-7xl lg:text-8xl xl:text-[96px] font-display font-black uppercase tracking-tight mr-3 md:mr-4"
                   style={{
                     color: word === "Confidence." ? "#E31E24" : "#1A1A1A",
                   }}
@@ -109,7 +102,7 @@ export default function HeroSection() {
                 <motion.span
                   key={i}
                   variants={itemVariants}
-                  className="hero-word inline-block text-5xl sm:text-6xl lg:text-7xl xl:text-[80px] font-display font-black uppercase tracking-tight mr-4 text-black/20"
+                  className="hero-word inline-block text-4xl sm:text-6xl lg:text-7xl xl:text-[80px] font-display font-black uppercase tracking-tight mr-3 md:mr-4 text-black/20"
                 >
                   {word}
                 </motion.span>
@@ -120,7 +113,7 @@ export default function HeroSection() {
           {/* Subheadline */}
           <motion.p
             variants={itemVariants}
-            className="hero-sub text-lg sm:text-xl text-brand-muted font-body leading-relaxed max-w-xl mt-6 mb-10"
+            className="hero-sub text-base sm:text-xl text-brand-muted font-body leading-relaxed max-w-xl mt-6 mb-10"
           >
             Bengaluru&apos;s premium multi-brand tyre destination. Expert
             fitment for cars &amp; motorcycles — walk-ins welcome.
@@ -129,14 +122,14 @@ export default function HeroSection() {
           {/* CTAs */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row items-start gap-4 mb-10"
+            className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4 mb-10"
           >
             <a
               href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%20found%20you%20on%20your%20website%20and%20need%20tyre%20help"
-              className="hero-cta group flex items-center justify-between gap-4 bg-brand-red hover:bg-brand-red-dark text-white font-body font-semibold pl-7 pr-3 py-3 rounded-full transition-all duration-300 hover:shadow-[0_0_30px_rgba(227,30,36,0.4)] active:scale-95 text-base border border-transparent shadow-lg"
+              className="hero-cta w-full sm:w-auto group flex items-center justify-between gap-4 bg-brand-red hover:bg-brand-red-dark text-white font-body font-semibold pl-7 pr-3 py-3 rounded-full transition-all duration-300 hover:shadow-[0_0_30px_rgba(227,30,36,0.4)] active:scale-95 text-base border border-transparent shadow-lg"
             >
               <span>Get a Free Tyre Check</span>
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center overflow-hidden">
+              <div className="w-10 h-10 shrink-0 rounded-full bg-white/10 flex items-center justify-center overflow-hidden">
                 <img
                   src="/images/hero-tyre.png"
                   alt="Roll"
@@ -149,10 +142,10 @@ export default function HeroSection() {
             </a>
             <Link
               href="/brands"
-              className="hero-cta group flex items-center justify-between gap-4 bg-white hover:bg-gray-50 text-brand-chrome font-body font-semibold pl-7 pr-3 py-3 rounded-full transition-all duration-300 hover:shadow-xl hover:border-brand-red/30 active:scale-95 text-base border border-black/10 shadow-sm"
+              className="hero-cta w-full sm:w-auto group flex items-center justify-between gap-4 bg-white hover:bg-gray-50 text-brand-chrome font-body font-semibold pl-7 pr-3 py-3 rounded-full transition-all duration-300 hover:shadow-xl hover:border-brand-red/30 active:scale-95 text-base border border-black/10 shadow-sm"
             >
               <span>Browse Our Brands</span>
-              <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center overflow-hidden">
+              <div className="w-10 h-10 shrink-0 rounded-full bg-black/5 flex items-center justify-center overflow-hidden">
                 <img
                   src="/images/hero-tyre.png"
                   alt="Roll"
@@ -180,6 +173,13 @@ export default function HeroSection() {
               </div>
             ))}
           </motion.div>
+        </div>
+
+        {/* Continuous Rolling Premium Tyre */}
+        <div className="relative md:absolute self-center mt-12 md:mt-0 right-auto md:right-[-15px] lg:right-[-2%] xl:right-[1%] 2xl:right-[4%] md:top-1/2 md:-translate-y-1/2 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px] lg:w-[600px] lg:h-[600px] pointer-events-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[1]">
+          <div className="w-full h-full pointer-events-auto">
+            <TyreModel />
+          </div>
         </div>
       </div>
 
