@@ -4,6 +4,12 @@ import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const TyreModel = dynamic(() => import("@/components/ui/TyreModel"), {
+  ssr: false,
+  loading: () => null,
+});
 
 const trustBadges = [
   "Michelin Authorised",
@@ -62,14 +68,9 @@ export default function HeroSection() {
 
         {/* Continuous Rolling Premium Tyre */}
         <div className="absolute right-[-30px] md:right-[-15px] lg:right-[1%] xl:right-[4%] 2xl:right-[6%] top-1/2 -translate-y-1/2 w-[450px] h-[450px] lg:w-[600px] lg:h-[600px] pointer-events-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[1]">
-          <img
-            src="/images/hero-tyre.png"
-            alt="Premium Tyre"
-            className="w-full h-full object-contain animate-[spin_5s_linear_infinite]"
-            onError={(e) => {
-              e.currentTarget.style.display = "none";
-            }}
-          />
+          <div className="w-full h-full pointer-events-auto">
+            <TyreModel />
+          </div>
         </div>
       </div>
 
