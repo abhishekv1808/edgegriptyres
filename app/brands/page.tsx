@@ -13,6 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 const brands = [
   {
     name: "Michelin",
+    logo: "/logos/michelin.png",
     tagline: "The World's Most Trusted Tyre",
     description:
       "From Formula 1 tracks to Bengaluru's flyovers, Michelin sets the standard for safety, longevity, and performance. If you want the best, this is it.",
@@ -24,6 +25,7 @@ const brands = [
   },
   {
     name: "CEAT",
+    logo: "/logos/ceat_tyres-logo.png",
     tagline: "India's Road Champion",
     description:
       "Built for Indian roads. CEAT tyres deliver outstanding durability on pothole-heavy urban streets, with excellent wet-road grip and competitive pricing.",
@@ -33,6 +35,7 @@ const brands = [
   },
   {
     name: "Eurogrip",
+    logo: "/logos/TVS-Eurogrip-logo.jpg",
     tagline: "The Biker's Choice",
     description:
       "Eurogrip is engineered specifically for two-wheelers, with a track record across India's toughest roads.",
@@ -46,6 +49,7 @@ const brands = [
   },
   {
     name: "Maxxis",
+    logo: "/logos/maxxis-logo.png",
     tagline: "Performance Across Categories",
     description:
       "Trusted by OEMs worldwide, Maxxis delivers consistent performance for both cars and bikes with an excellent price-to-quality ratio.",
@@ -55,6 +59,7 @@ const brands = [
   },
   {
     name: "Pirelli",
+    logo: "/logos/Pirelli_logo.png",
     tagline: "Born on the Racetrack",
     description:
       "If your car is your passion, Pirelli is your tyre. From sports cars to premium sedans, Pirelli offers unmatched handling, aesthetics, and prestige.",
@@ -142,33 +147,46 @@ export default function BrandsPage() {
                   className={`lg:col-span-2 ${i % 2 === 1 ? "lg:order-2" : ""}`}
                 >
                   <div
-                    className="glass-card rounded-2xl p-8 text-center"
-                    style={{ borderColor: `${brand.color}15` }}
+                    className="glass-card rounded-2xl p-8 text-center relative overflow-hidden lg:sticky lg:top-28"
+                    style={{ borderColor: `${brand.color}20` }}
                   >
+                    {/* Top accent line */}
                     <div
-                      className="w-24 h-24 rounded-2xl mx-auto mb-4 flex items-center justify-center text-4xl font-display font-black"
+                      className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
+                      style={{ background: `linear-gradient(90deg, transparent, ${brand.color}, transparent)` }}
+                    />
+
+                    {/* Logo */}
+                    <div
+                      className="w-40 h-40 rounded-3xl mx-auto mb-6 flex items-center justify-center overflow-hidden p-4"
                       style={{
-                        background: `${brand.color}15`,
-                        color: brand.color,
+                        background: `linear-gradient(135deg, ${brand.color}10, ${brand.color}20)`,
+                        boxShadow: `0 8px 40px ${brand.color}15`,
                       }}
                     >
-                      {brand.name[0]}
+                      <img
+                        src={brand.logo}
+                        alt={`${brand.name} logo`}
+                        className="w-full h-full object-contain drop-shadow-lg"
+                      />
                     </div>
-                    <h3 className="text-2xl font-display font-bold text-brand-white mb-1">
+
+                    <h3 className="text-2xl font-display font-bold text-brand-white mb-2">
                       {brand.name}
                     </h3>
-                    <p className="text-sm text-brand-muted font-body italic">
+                    <p className="text-sm text-brand-muted font-body italic mb-5">
                       {brand.tagline}
                     </p>
 
                     {/* Tags */}
-                    <div className="flex flex-wrap justify-center gap-2 mt-4">
+                    <div className="flex flex-wrap justify-center gap-2">
                       {brand.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-[10px] font-body font-semibold uppercase tracking-wider px-3 py-1 rounded-full"
+                          className="text-[10px] font-body font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full border"
                           style={{
-                            background: `${brand.color}15`,
+                            background: `${brand.color}10`,
+                            borderColor: `${brand.color}25`,
                             color: brand.color,
                           }}
                         >
@@ -183,60 +201,87 @@ export default function BrandsPage() {
                 <div
                   className={`lg:col-span-3 ${i % 2 === 1 ? "lg:order-1" : ""}`}
                 >
-                  <h2 className="text-3xl sm:text-4xl font-display font-bold text-brand-white mb-4">
-                    {brand.name} —{" "}
-                    <span style={{ color: brand.color }}>{brand.tagline}</span>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black text-brand-white mb-4 tracking-tight">
+                    {brand.name} <span className="font-light text-brand-muted/40">|</span>{" "}
+                    <span
+                      style={{
+                        background: `linear-gradient(to right, ${brand.color}, ${brand.color}80)`,
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }}
+                    >
+                      {brand.tagline}
+                    </span>
                   </h2>
-                  <p className="text-brand-muted font-body leading-relaxed mb-6">
+                  <p className="text-brand-muted font-body text-lg leading-relaxed mb-8">
                     {brand.description}
                   </p>
 
-                  {brand.featuredProduct && (
-                    <div className="glass-card rounded-xl p-5 mb-6">
-                      <p className="text-xs font-body font-semibold text-brand-red uppercase tracking-wider mb-2">
-                        Featured Product
-                      </p>
-                      <p className="text-lg font-display font-bold text-brand-white mb-1">
-                        {brand.featuredProduct}
-                      </p>
-                      {brand.why && (
-                        <p className="text-sm text-brand-muted font-body">
-                          {brand.why}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    {brand.featuredProduct && (
+                      <div className="glass-card rounded-2xl p-6 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="w-1.5 h-6 rounded-full" style={{ backgroundColor: brand.color }} />
+                          <p className="text-xs font-body font-bold text-brand-white uppercase tracking-[0.15em]">
+                            Hero Product
+                          </p>
+                        </div>
+                        <p className="text-xl font-display font-bold text-brand-white mb-2">
+                          {brand.featuredProduct}
                         </p>
-                      )}
-                    </div>
-                  )}
+                        {brand.why && (
+                          <p className="text-sm text-brand-muted font-body leading-relaxed">
+                            {brand.why}
+                          </p>
+                        )}
+                      </div>
+                    )}
 
-                  {brand.featuredProducts && (
-                    <div className="glass-card rounded-xl p-5 mb-6">
-                      <p className="text-xs font-body font-semibold text-brand-red uppercase tracking-wider mb-2">
-                        Featured Products
+                    {brand.featuredProducts && (
+                      <div className="glass-card rounded-2xl p-6 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="w-1.5 h-6 rounded-full" style={{ backgroundColor: brand.color }} />
+                          <p className="text-xs font-body font-bold text-brand-white uppercase tracking-[0.15em]">
+                            Popular Models
+                          </p>
+                        </div>
+                        <ul className="space-y-2">
+                          {brand.featuredProducts.map((p, j) => (
+                            <li
+                              key={j}
+                              className="text-sm text-brand-muted font-body flex items-start gap-2"
+                            >
+                              <span style={{ color: brand.color }}>•</span>
+                              <span className="flex-1">{p}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center justify-between border-t border-white/5 pt-6 mt-6">
+                    <div className="flex-1">
+                      <p className="text-xs font-body font-bold text-brand-white/40 uppercase tracking-widest mb-1">
+                        Best For
                       </p>
-                      <ul className="space-y-1">
-                        {brand.featuredProducts.map((p, j) => (
-                          <li
-                            key={j}
-                            className="text-sm text-brand-chrome font-body"
-                          >
-                            • {p}
-                          </li>
-                        ))}
-                      </ul>
+                      <p className="text-sm text-brand-white font-body font-medium">
+                        {brand.bestFor}
+                      </p>
                     </div>
-                  )}
 
-                  <p className="text-sm text-brand-muted font-body mb-6">
-                    <strong className="text-brand-chrome">Best For:</strong>{" "}
-                    {brand.bestFor}
-                  </p>
-
-                  <a
-                    href={`https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(brand.name)}%20tyres`}
-                    className="inline-flex items-center gap-2 bg-brand-red hover:bg-brand-red-dark text-white font-body font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(227,30,36,0.4)]"
-                  >
-                    Enquire About {brand.name}
-                    <ArrowRight size={14} />
-                  </a>
+                    <a
+                      href={`https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(brand.name)}%20tyres`}
+                      className="group inline-flex items-center gap-3 text-brand-black font-body font-bold px-6 py-3.5 rounded-xl transition-all duration-300 relative overflow-hidden"
+                      style={{ backgroundColor: brand.color }}
+                    >
+                      <span className="relative z-10">Enquire Now</span>
+                      <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center relative z-10 group-hover:bg-black/20 transition-colors">
+                        <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+                      </div>
+                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

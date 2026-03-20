@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import FounderSection from "@/components/about/FounderSection";
 import { Heart, Target, Users, ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -130,6 +131,9 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Founder Section */}
+        <FounderSection />
+
         {/* Values */}
         <section className="values-section py-24 bg-brand-dark">
           <div className="section-container">
@@ -152,7 +156,7 @@ export default function AboutPage() {
                 return (
                   <div
                     key={i}
-                    className="value-card glass-card rounded-2xl p-8 text-center hover:border-brand-red/20 transition-all duration-500"
+                    className="value-card glass-card rounded-2xl p-8 text-center border border-transparent hover:border-brand-red/20 transition-colors duration-500"
                   >
                     <div className="w-16 h-16 rounded-2xl bg-brand-red/10 flex items-center justify-center mx-auto mb-6">
                       <Icon size={28} className="text-brand-red" />
