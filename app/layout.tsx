@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "EdgeGrip Tyres Bengaluru | Michelin, CEAT, Pirelli | Nagasandra",
+  metadataBase: new URL("https://edgegriptyres.in"),
+  title: {
+    default: "EdgeGrip Tyres Bengaluru | Michelin, CEAT, Pirelli | Nagasandra",
+    template: "%s | EdgeGrip Tyres Bengaluru",
+  },
   description:
-    "EdgeGrip Tyres — Bengaluru's trusted multi-brand tyre store. Expert installation, wheel balancing & alignment. Michelin, CEAT, Eurogrip, Maxxis & Pirelli. Visit us in Nagasandra.",
+    "EdgeGrip Tyres — Bengaluru's trusted multi-brand tyre store in Nagasandra. Expert installation, wheel balancing & alignment. Michelin, CEAT, Eurogrip, Maxxis & Pirelli. Walk-ins welcome.",
   keywords: [
     "tyre shop Nagasandra",
     "tyre shop Bengaluru",
@@ -13,13 +17,39 @@ export const metadata: Metadata = {
     "CEAT tyre dealer Bengaluru",
     "Pirelli tyres Bengaluru",
     "EdgeGrip Tyres",
+    "tyre fitting near me",
+    "wheel balancing Bengaluru",
+    "best tyre shop Bangalore",
+    "SUV tyres Bengaluru",
+    "bike tyres Nagasandra",
   ],
+  authors: [{ name: "EdgeGrip Tyres" }],
+  creator: "EdgeGrip Tyres",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     title: "EdgeGrip Tyres — Bengaluru's Premium Tyre Destination",
     description:
-      "5 Global Brands. 1 Expert Address. Zero Compromise. Expert fitment for cars & motorcycles.",
+      "5 Global Brands. 1 Expert Address. Zero Compromise. Expert fitment for cars & motorcycles in Nagasandra, Bengaluru.",
+    url: "https://edgegriptyres.in",
+    siteName: "EdgeGrip Tyres",
     locale: "en_IN",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "EdgeGrip Tyres — Bengaluru's Premium Tyre Destination",
+    description:
+      "5 Global Brands. 1 Expert Address. Zero Compromise. Expert fitment for cars & motorcycles.",
   },
 };
 

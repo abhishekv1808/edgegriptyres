@@ -84,10 +84,23 @@ export default function WhySection() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-24 bg-brand-black relative overflow-hidden"
-    >
+    <>
+      {/* Road-like illustration divider */}
+      <div className="w-full h-12 bg-[#151515] border-y border-white/[0.08] relative overflow-hidden flex items-center justify-center shadow-[inset_0_4px_12px_rgba(0,0,0,0.5)]">
+        {/* Dashed median line (white road stripe) */}
+        <div
+          className="w-full h-1 opacity-60"
+          style={{
+            backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.8) 50%, transparent 50%)",
+            backgroundSize: "80px 100%",
+          }}
+        />
+      </div>
+
+      <section
+        ref={sectionRef}
+        className="py-24 bg-brand-black relative overflow-hidden"
+      >
       {/* Background accent */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-brand-red/3 rounded-full blur-[150px]" />
 
@@ -142,5 +155,6 @@ export default function WhySection() {
         </div>
       </div>
     </section>
+    </>
   );
 }

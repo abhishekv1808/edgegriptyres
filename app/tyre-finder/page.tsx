@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Search, Car, Bike, Shield, Info, ArrowRight } from "lucide-react";
@@ -13,6 +13,100 @@ import {
   searchVehicles,
 } from "@/lib/vehicleData";
 import Link from "next/link";
+
+// Premium Custom Select Component
+function CustomSelect({
+  label,
+  value,
+  onChange,
+  options,
+  placeholder,
+  disabled = false,
+}: {
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  options: { value: string; label: string }[];
+  placeholder: string;
+  disabled?: boolean;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const selectedOption = options.find((opt) => opt.value === value);
+
+  return (
+    <div className={`relative ${disabled ? "opacity-50 pointer-events-none" : ""}`} ref={dropdownRef}>
+      <label className="block text-xs font-semibold text-brand-chrome uppercase tracking-wider mb-2">
+        {label}
+      </label>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full bg-white border ${
+          isOpen ? "border-brand-red ring-4 ring-brand-red/10" : "border-black/15 hover:border-black/30 hover:shadow-sm"
+        } rounded-xl px-4 py-3.5 text-sm font-body text-left flex items-center justify-between transition-all`}
+      >
+        <span className={selectedOption ? "text-brand-white font-semibold" : "text-brand-muted"}>
+          {selectedOption ? selectedOption.label : placeholder}
+        </span>
+        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${isOpen ? "bg-brand-red/10 text-brand-red" : "bg-gray-50 text-brand-muted"}`}>
+          <svg
+            className={`w-4 h-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </button>
+
+      <div
+        className={`absolute z-30 top-[calc(100%+8px)] left-0 w-full bg-white border border-black/10 rounded-xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-300 origin-top ${
+          isOpen ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+        }`}
+      >
+        <div className="max-h-60 overflow-y-auto custom-scrollbar p-1.5 flex flex-col gap-0.5">
+          {options.length === 0 ? (
+            <div className="px-3 py-3 text-sm text-brand-muted text-center bg-gray-50 rounded-lg">No options available</div>
+          ) : (
+            options.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => {
+                  onChange(opt.value);
+                  setIsOpen(false);
+                }}
+                className={`w-full text-left px-3 py-2.5 text-sm font-body rounded-lg transition-all flex items-center justify-between group ${
+                  value === opt.value
+                    ? "bg-brand-red/5 text-brand-red font-bold"
+                    : "text-brand-white hover:bg-gray-50 hover:text-brand-red"
+                }`}
+              >
+                <span>{opt.label}</span>
+                {value === opt.value && (
+                  <span className="w-2 h-2 rounded-full bg-brand-red"></span>
+                )}
+              </button>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function TyreFinderPage() {
   const [vehicleType, setVehicleType] = useState<"car" | "bike">("car");
@@ -191,114 +285,61 @@ export default function TyreFinderPage() {
                 </div>
 
                 {/* Step 1: Manufacturer */}
-                <div>
-                  <label className="block text-xs font-semibold text-brand-chrome uppercase tracking-wider mb-2">
-                    1. Brand / Manufacturer
-                  </label>
-                  <select
-                    value={selectedManufacturer}
-                    onChange={(e) => {
-                      setSelectedManufacturer(e.target.value);
-                      setSelectedModel(null);
-                      setSelectedVariant("");
-                    }}
-                    className="w-full bg-white border border-black/15 hover:border-black/30 rounded-xl px-4 py-3.5 text-sm font-body text-brand-white appearance-none cursor-pointer focus:outline-none focus:border-brand-red transition-all"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "right 1rem center",
-                    }}
-                  >
-                    <option value="">Select Manufacturer</option>
-                    {manufacturers.map((m) => (
-                      <option key={m} value={m}>
-                        {m}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <CustomSelect
+                  label="1. Brand / Manufacturer"
+                  placeholder="Select Manufacturer"
+                  value={selectedManufacturer}
+                  onChange={(val) => {
+                    setSelectedManufacturer(val);
+                    setSelectedModel(null);
+                    setSelectedVariant("");
+                  }}
+                  options={manufacturers.map(m => ({ value: m, label: m }))}
+                />
 
                 {/* Step 2: Model */}
-                <div
-                  className={`transition-opacity duration-300 ${
-                    selectedManufacturer
-                      ? "opacity-100"
-                      : "opacity-40 pointer-events-none"
-                  }`}
-                >
-                  <label className="block text-xs font-semibold text-brand-chrome uppercase tracking-wider mb-2">
-                    2. Vehicle Model
-                  </label>
-                  <select
-                    value={selectedModel?.id || ""}
-                    onChange={(e) => {
-                      const model = availableModels.find(
-                        (m) => m.id === e.target.value,
-                      );
-                      setSelectedModel(model || null);
-                      setSelectedVariant(model?.variants[0]?.name || "");
-                    }}
-                    className="w-full bg-white border border-black/15 hover:border-black/30 rounded-xl px-4 py-3.5 text-sm font-body text-brand-white appearance-none cursor-pointer focus:outline-none focus:border-brand-red transition-all"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "right 1rem center",
-                    }}
-                  >
-                    <option value="">Select Model</option>
-                    {availableModels.map((m) => (
-                      <option key={m.id} value={m.id}>
-                        {m.name} ({m.year})
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <CustomSelect
+                  label="2. Vehicle Model"
+                  placeholder="Select Model"
+                  value={selectedModel?.id || ""}
+                  onChange={(val) => {
+                    const model = availableModels.find((m) => m.id === val);
+                    setSelectedModel(model || null);
+                    setSelectedVariant(model?.variants[0]?.name || "");
+                  }}
+                  options={availableModels.map(m => ({ value: m.id, label: `${m.name} (${m.year})` }))}
+                  disabled={!selectedManufacturer}
+                />
 
                 {/* Step 3: Variant */}
-                <div
-                  className={`transition-opacity duration-300 ${
-                    selectedModel
-                      ? "opacity-100"
-                      : "opacity-40 pointer-events-none"
-                  }`}
-                >
-                  <label className="block text-xs font-semibold text-brand-chrome uppercase tracking-wider mb-2">
-                    3. Trim / Variant
-                  </label>
-                  <select
-                    value={selectedVariant}
-                    onChange={(e) => setSelectedVariant(e.target.value)}
-                    className="w-full bg-white border border-black/15 hover:border-black/30 rounded-xl px-4 py-3.5 text-sm font-body text-brand-white appearance-none cursor-pointer focus:outline-none focus:border-brand-red transition-all"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "right 1rem center",
-                    }}
-                  >
-                    <option value="">Select Variant</option>
-                    {selectedModel?.variants.map((v) => (
-                      <option key={v.name} value={v.name}>
-                        {v.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <CustomSelect
+                  label="3. Trim / Variant"
+                  placeholder="Select Variant"
+                  value={selectedVariant}
+                  onChange={(val) => setSelectedVariant(val)}
+                  options={(selectedModel?.variants || []).map(v => ({ value: v.name, label: v.name }))}
+                  disabled={!selectedModel}
+                />
               </div>
 
               {/* Right Column: Results & Info */}
-              <div className="bg-brand-dark-2 rounded-2xl p-6 md:p-8 border border-black/5 flex flex-col justify-center">
+              <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-[2rem] p-8 md:p-10 border border-black/[0.03] shadow-inner shadow-black/[0.02] flex flex-col justify-center relative overflow-hidden">
+                {/* Decorative background circle */}
+                <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-brand-red/5 rounded-full blur-[40px] pointer-events-none"></div>
+                
                 {!selectedModel || !selectedVariant ? (
-                  <div className="text-center py-10">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 border border-black/5 shadow-sm">
-                      <Car className="text-brand-chrome w-8 h-8" />
+                  <div className="text-center py-10 relative z-10">
+                    <div className="w-20 h-20 bg-white shadow-[0_15px_30px_-5px_rgba(0,0,0,0.08)] rounded-2xl flex items-center justify-center mx-auto mb-6 border border-black/5 transform hover:-translate-y-1 transition-transform duration-300">
+                      <div className="w-12 h-12 rounded-xl bg-brand-red/5 flex items-center justify-center text-brand-red">
+                        <Car strokeWidth={2.5} className="w-6 h-6" />
+                      </div>
                     </div>
-                    <h4 className="text-brand-white font-display font-semibold text-xl mb-2">
-                      Ready to Find Recommendations
+                    <h4 className="text-brand-white font-display font-bold text-2xl mb-3 tracking-tight">
+                      Ready for Recommendations
                     </h4>
-                    <p className="text-sm font-body text-brand-muted max-w-sm mx-auto">
+                    <p className="text-sm font-body text-brand-muted max-w-sm mx-auto leading-relaxed">
                       Select your vehicle details on the left to instantly
-                      reveal the exact tyre size specifications and hand-picked
-                      options.
+                      reveal the exact tyre size specifications and hand-picked premium upgrade options.
                     </p>
                   </div>
                 ) : (

@@ -41,7 +41,7 @@ export default function HeroSection() {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="relative pt-24 pb-20 md:pt-32 md:pb-28 lg:pt-36 lg:pb-32 flex flex-col justify-center overflow-hidden"
+      className="relative pt-24 pb-12 md:pt-32 md:pb-16 lg:pt-36 lg:pb-20 flex flex-col justify-center overflow-hidden"
       style={{ background: "var(--grad-hero)" }}
     >
       {/* Decorative Elements */}
@@ -61,11 +61,11 @@ export default function HeroSection() {
         />
 
         {/* Continuous Rolling Premium Tyre */}
-        <div className="absolute right-[-40px] md:right-[-20px] lg:right-[2%] xl:right-[6%] top-1/2 -translate-y-1/2 w-[450px] h-[450px] lg:w-[600px] lg:h-[600px] pointer-events-none drop-shadow-2xl z-[1]">
+        <div className="absolute right-[-30px] md:right-[-15px] lg:right-[1%] xl:right-[4%] 2xl:right-[6%] top-1/2 -translate-y-1/2 w-[450px] h-[450px] lg:w-[600px] lg:h-[600px] pointer-events-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[1]">
           <img
             src="/images/hero-tyre.png"
             alt="Premium Tyre"
-            className="w-full h-full object-contain animate-[spin_12s_linear_infinite]"
+            className="w-full h-full object-contain animate-[spin_5s_linear_infinite]"
             onError={(e) => {
               e.currentTarget.style.display = "none";
             }}
@@ -74,8 +74,8 @@ export default function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="section-container relative z-10 pt-4 pb-8 md:pt-8 md:pb-16 lg:pt-12 lg:pb-20">
-        <div className="max-w-2xl lg:max-w-3xl">
+      <div className="w-full px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32 max-w-[1920px] mx-auto relative z-10 pt-4 pb-4 md:pt-8 md:pb-8 lg:pt-12 lg:pb-12">
+        <div className="max-w-2xl lg:max-w-3xl relative z-20">
           {/* Overline */}
           <motion.div
             variants={itemVariants}
@@ -183,7 +183,7 @@ export default function HeroSection() {
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
     </motion.section>
   );
 }
